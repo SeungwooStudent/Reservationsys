@@ -14,8 +14,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 
     //예약취소
     @Modifying //수정,삭제시에 꼭 필요하다. 조회를 제외하고 변경이 일어나면 필요함
-    @Query("DELETE FROM Reservation reservation Where reservation.id = ?")
-    String reservationCancel(int id);
+    @Query("DELETE FROM Reservation reservation Where reservation.id = :id")
+    int reservationCancel(int id);
 
     //예약확인,검색
     @Query("SELECT reservation FROM Reservation reservation Where reservation.name = :name and reservation.phoneNumber = :phoneNumber")
