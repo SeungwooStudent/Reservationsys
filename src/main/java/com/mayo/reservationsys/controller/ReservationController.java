@@ -17,6 +17,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @GetMapping("/v1/reservation/all")
+    @CrossOrigin("*")
     public List<Reservation> getReservations() {
         System.out.println("v1/reservation/all");
         return reservationService.getReservations();
