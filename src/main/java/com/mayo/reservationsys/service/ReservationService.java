@@ -40,11 +40,15 @@ public class ReservationService {
     }
 
     //예약수정,
-//    @Transactional
-//    public String updateUser(String name, String phoneNumber, int count, boolean service) {
-//        int result = reservationRepository.updateUser(name, phoneNumber, count, service);
-//        if(result == 1) {
-//            return "변경사항이 수정되었습니다.";
-//        } return "다시한번 확인!";
-//    }
+    @Transactional
+    public String updateUser(int id, String name, String phoneNumber, int count, boolean service) {
+        if (!reservationRepository.findById(id).isPresent()) {
+            return "회원님의 ID를 다시한번 확인해주세요";
+        }
+        int result = reservationRepository.updateUser(id, name, phoneNumber, count, service);
+        if (result == 1) {
+            return "변경사항이 수정되었습니다.";
+        }
+        return "변경사항에 에러가 발생하였습니다";
+    }
 }

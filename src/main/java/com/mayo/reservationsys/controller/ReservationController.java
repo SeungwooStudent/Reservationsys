@@ -42,9 +42,9 @@ public class ReservationController {
         return reservationService.reservationSearch(name , phoneNumber);
     }
 
-//    @CrossOrigin("*")
-//    @PostMapping("/reservationUpdate")
-//    public String update(@RequestParam("name") String name, @RequestParam("phoneNumber") String phoneNumber, @RequestParam("count") int count, @RequestParam("service") boolean service) {
-//        return reservationService.updateUser(name, phoneNumber, count, service);
-//    }
+    @CrossOrigin("*")
+    @PostMapping("/reservationUpdate")
+    public String reservationUpdate(@RequestParam("id") int id, @RequestParam("name") String name, @RequestParam("phoneNumber") String phoneNumber, @RequestParam("count") int count, @RequestParam("service") boolean service) {
+        return reservationService.updateUser(id, name, phoneNumber, count, service);
+    }
 }

@@ -22,8 +22,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     List<Reservation> searchUser(String name, String phoneNumber);
 
     //예약정보 수정
-//    @Modifying
-//    @Query("UPDATE Reservation reservation SET name = :name, phone_number = :phoneNumber, count = :count, service = :service WHERE reservation.id = : ?")
-//    int updateUser(String name, String phoneNumber, int count, boolean service);
+    @Modifying
+    @Query("UPDATE Reservation reservation SET reservation.name = :name, reservation.phoneNumber = :phoneNumber, reservation.count = :count, reservation.service = :service WHERE reservation.id = :id")
+    int updateUser(int id, String name, String phoneNumber, int count, boolean service);
+
 
 }
