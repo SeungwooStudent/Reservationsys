@@ -22,6 +22,7 @@ public class ReservationService {
 
     //예약등록
     public String reservation(int roomNo, String name, String phoneNumber, int count, Date startDate, Date endDate, boolean service) {
+        System.out.println("reservation service");
         reservationRepository.save(Reservation.builder().roomNo(roomNo).name(name).phoneNumber(phoneNumber).count(count).startDate(startDate).endDate(endDate).service(service).build());
         return "예약이 완료되었습니다.";
     }
