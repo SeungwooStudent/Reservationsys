@@ -1,7 +1,6 @@
 package com.mayo.reservationsys.service;
 
-import com.mayo.reservationsys.entity.Reservation;
-import com.mayo.reservationsys.entity.Room;
+import com.mayo.reservationsys.entity.Rooms;
 import com.mayo.reservationsys.repository.RoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import java.util.List;
 public class RoomService {
     private final RoomRepository roomRepository;
 
-    public List<Room> getRoominfor() {
+    public List<Rooms> getRoomInfo() {
         return roomRepository.findAll();
     }
 

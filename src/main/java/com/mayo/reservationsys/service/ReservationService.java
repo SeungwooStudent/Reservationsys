@@ -1,13 +1,12 @@
 package com.mayo.reservationsys.service;
 
-import com.mayo.reservationsys.entity.Reservation;
+import com.mayo.reservationsys.dto.ReservationBookDto;
+import com.mayo.reservationsys.entity.Reservations;
 import com.mayo.reservationsys.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -16,29 +15,38 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     //예약자 전부 출력
-    public List<Reservation> getReservations() {
+    public List<Reservations> getReservations() {
         return reservationRepository.findAll();
     }
 
     //예약등록
-    public String reservation(int roomNo, String name, String phoneNumber, int count, Date startDate, Date endDate, boolean service) {
+    public String reservation(ReservationBookDto reservationBookDto) {
         System.out.println("reservation service");
-        reservationRepository.save(Reservation.builder().roomNo(roomNo).name(name).phoneNumber(phoneNumber).count(count).startDate(startDate).endDate(endDate).service(service).build());
+        reservationRepository.save(
+                Reservations.builder()
+                        .roomNo(reservationBookDto.getRoomNo())
+                        .userName(reservationBookDto.getName())
+                        .phoneNumber(reservationBookDto.getPhoneNumber())
+                        .userCount(reservationBookDto.getCount())
+                        .startDate(reservationBookDto.getStartDate())
+                        .endDate(reservationBookDto.getEndDate())
+                        .service(reservationBookDto.isService())
+                        .build());
         return "예약이 완료되었습니다.";
     }
 
-    //예약취소
-    @Transactional
-    public String reservationCancel(int id) {
-        reservationRepository.reservationCancel(id);
-        return "예약이 취소되었습니다";
-    }
-
-    //예약확인,검색
-    @Transactional
-    public List<Reservation> reservationSearch(String name, String phoneNumber) {
-        return reservationRepository.searchUser(name, phoneNumber);
-    }
+//    //예약취소
+//    @Transactional
+//    public String reservationCancel(ReservationCancelDto reservationCancelDto) {
+//        reservationRepository.reservationCancel(reservationCancelDto);
+//        return "예약이 취소되었습니다";
+//    }
+//
+//    //예약확인,검색
+//    @Transactional
+//    public List<Reservation> reservationSearch(ReservationSearchDto reservationSearchDto) {
+//        return reservationRepository.searchUser(reservationSearchDto);
+//    }
 
     //예약수정,
     @Transactional
