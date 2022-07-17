@@ -12,8 +12,8 @@ create table reservations (
     phone_number varchar(20) not null,
     room_no varchar(10) not null,
     service boolean not null,
-    start_date datetime not null,
-    end_date datetime not null,
+    check_in datetime not null,
+    check_out datetime not null,
     ins_dtm datetime not null,
     upd_dtm datetime not null
 );

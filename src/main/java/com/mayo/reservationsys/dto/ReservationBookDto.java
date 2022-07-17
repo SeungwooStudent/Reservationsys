@@ -14,10 +14,10 @@ import java.util.Date;
 public class ReservationBookDto {
 
     private int roomNo;
-    private String name;
+    private String userName;
     private String phoneNumber;
-    private int count;
-    private Date startDate;
-    private Date endDate;
+    private int userCount;
+    private Date check_in;
+    private Date check_out;
     private boolean service;
 }

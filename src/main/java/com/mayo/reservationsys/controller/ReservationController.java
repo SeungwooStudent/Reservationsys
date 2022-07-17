@@ -1,6 +1,7 @@
 package com.mayo.reservationsys.controller;
 
 import com.mayo.reservationsys.dto.ReservationBookDto;
+import com.mayo.reservationsys.dto.reservations.ReservationInfoDto;
 import com.mayo.reservationsys.entity.Reservations;
 import com.mayo.reservationsys.service.ReservationService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @GetMapping("all")
-    public List<Reservations> getReservations() {
+    public List<ReservationInfoDto> getReservations() {
         System.out.println(RESERVATION_API + "/all");
         return reservationService.getReservations();
     }
@@ -28,14 +29,14 @@ public class ReservationController {
     // dto -> data transfer object
     public String reservation(@Valid @RequestBody ReservationBookDto reservationBookDto) {
         System.out.println(RESERVATION_API + "/book");
-        return reservationService.reservation(reservationBookDto);
+        return reservationService.book(reservationBookDto);
     }
 
-//    @PostMapping("cancel")
-//    public String reservationCancel(@Valid @RequestBody ReservationCancelDto reservationCancelDto) {
-//        System.out.println(RESERVATION_API + "/cancel");
-//        return reservationService.reservationCancel(reservationCancelDto);
-//    }
+    @PostMapping("cancle/{seq}")
+    public String reservationCancle(@PathVariable Long seq) {
+        System.out.println(RESERVATION_API + "/cancle/" + seq);
+        return reservationService.reservationCancle(seq);
+    }
 
 //    @GetMapping("search")
 //    public List<Reservation> searchUser(@Valid @RequestBody ReservationSearchDto reservationSearchDto) {

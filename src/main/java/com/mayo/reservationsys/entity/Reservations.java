@@ -17,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor //파라미터가 없는 기본 생성자
 public class Reservations extends BaseTime {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reservationSeq;
 
     private int userCount;
@@ -25,7 +25,7 @@ public class Reservations extends BaseTime {
     private String phoneNumber;
     private int roomNo;
     private boolean service;
-    private Date startDate;
-    private Date endDate;
+    private Date check_in;
+    private Date check_out;
 
 }
