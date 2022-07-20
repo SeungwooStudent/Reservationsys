@@ -1,6 +1,8 @@
 package com.mayo.reservationsys.service;
 
-import com.mayo.reservationsys.dto.ReservationBookDto;
+import com.mayo.reservationsys.dto.reservations.ReservationBookDto;
+import com.mayo.reservationsys.dto.reservations.ReservationSearchDto;
+import com.mayo.reservationsys.dto.reservations.ReservationUpdateDto;
 import com.mayo.reservationsys.dto.reservations.ReservationInfoDto;
 import com.mayo.reservationsys.entity.Reservations;
 import com.mayo.reservationsys.repository.ReservationRepository;
@@ -43,20 +45,20 @@ public class ReservationService {
         reservationRepository.reservationCancle(seq);
         return "예약이 취소되었습니다";
     }
-//
-//    //예약확인,검색
-//    @Transactional
-//    public List<Reservation> reservationSearch(ReservationSearchDto reservationSearchDto) {
-//        return reservationRepository.searchUser(reservationSearchDto);
-//    }
+
+    //예약확인,검색
+    @Transactional
+    public List<Reservations> reservationSearch(ReservationSearchDto reservationSearchDto) {
+        return reservationRepository.searchUser(reservationSearchDto.getUserName(),reservationSearchDto.getPhoneNumber());
+    }
 
     //예약수정,
     @Transactional
-    public String updateUser(long id, String name, String phoneNumber, int count, boolean service) {
+    public String updateUser(long id, ReservationUpdateDto reservationUpdateDto) {
         if (!reservationRepository.findById(id).isPresent()) {
             return "회원님의 ID를 다시한번 확인해주세요";
         }
-        int result = reservationRepository.updateUser(id, name, phoneNumber, count, service);
+        int result = reservationRepository.updateUser(id,reservationUpdateDto.getUserName(),reservationUpdateDto.getPhoneNumber(),reservationUpdateDto.getUserCount(),reservationUpdateDto.isService());
         if (result == 1) {
             return "변경사항이 수정되었습니다.";
         }
