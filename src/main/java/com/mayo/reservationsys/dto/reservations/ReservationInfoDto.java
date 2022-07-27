@@ -7,6 +7,8 @@ import java.util.Date;
 
 
 public interface ReservationInfoDto {
+    public String getReservationSeq();
+
     public String getUserName(); // userName
 
     public String getPhoneNumber();
@@ -15,9 +17,9 @@ public interface ReservationInfoDto {
 
     public boolean getService();
 
-    public Date getCheck_in();
+    public Date getCheckIn();
 
-    public Date getCheck_out();
+    public Date getCheckOut();
 
     public String getRoomName(); // roomName
 

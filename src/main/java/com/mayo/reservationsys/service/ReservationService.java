@@ -1,9 +1,6 @@
 package com.mayo.reservationsys.service;
 
-import com.mayo.reservationsys.dto.reservations.ReservationBookDto;
-import com.mayo.reservationsys.dto.reservations.ReservationSearchDto;
-import com.mayo.reservationsys.dto.reservations.ReservationUpdateDto;
-import com.mayo.reservationsys.dto.reservations.ReservationInfoDto;
+import com.mayo.reservationsys.dto.reservations.*;
 import com.mayo.reservationsys.entity.Reservations;
 import com.mayo.reservationsys.repository.ReservationRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,8 +32,8 @@ public class ReservationService {
                         .userName(reservationBookDto.getUserName())
                         .phoneNumber(reservationBookDto.getPhoneNumber())
                         .userCount(reservationBookDto.getUserCount())
-                        .check_in(reservationBookDto.getCheck_in())
-                        .check_out(reservationBookDto.getCheck_out())
+                        .checkIn(reservationBookDto.getCheckIn())
+                        .checkOut(reservationBookDto.getCheckOut())
                         .service(reservationBookDto.isService())
                         .build());
         return "예약이 완료되었습니다.";
@@ -64,4 +64,25 @@ public class ReservationService {
         }
         return "변경사항에 에러가 발생하였습니다";
     }
+
+    //특정날짜로 예약가능한 방 조회
+    @Transactional
+    public List<ReservationCheckDto> avaliableRooms(String date) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date reqeustDate = simpleDateFormat.parse(date);
+        return reservationRepository.getAvaliableRooms(reqeustDate);
+    }
+
+    //핸드폰번호로 예약자 조회
+    @Transactional
+    public List<Reservations> phoneNumberSearch(String phoneNumber) {
+        return reservationRepository.phoneNumberSearch(phoneNumber);
+    }
+
+    //방 번호로 예약자 조회
+    @Transactional
+    public List<Reservations> roomNumberSearch(int roomNo) {
+       return reservationRepository.roomNumberSearch(roomNo);
+    }
+
 }

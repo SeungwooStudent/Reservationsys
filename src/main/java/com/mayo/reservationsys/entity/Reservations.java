@@ -25,7 +25,10 @@ public class Reservations extends BaseTime {
     private String phoneNumber;
     private int roomNo;
     private boolean service;
-    private Date check_in;
-    private Date check_out;
+
+    // req = 2022-01-15
+    // req > check_in && req < check_out
+    private Date checkIn; // 2022-01-16
+    private Date checkOut;// 2022-01-17
 
 }

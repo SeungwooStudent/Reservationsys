@@ -16,10 +16,4 @@ public class ReservationSearchDto {
     private String userName;
     private String phoneNumber;
 
-//    @Builder
-//    public ReservationSearchDto(String userName, String phoneNumber) {
-//        this.userName = userName;
-//        this.phoneNumber = phoneNumber;
-//    }
-
 }

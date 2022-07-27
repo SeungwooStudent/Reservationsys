@@ -1,2 +1,5 @@
-package com.mayo.reservationsys.dto.reservations;public class ReservationCheckDto {
+package com.mayo.reservationsys.dto.reservations;
+
+public interface ReservationCheckDto {
+    public String getRoomNo();
 }

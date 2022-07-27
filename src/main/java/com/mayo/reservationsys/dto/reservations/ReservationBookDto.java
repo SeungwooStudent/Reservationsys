@@ -17,7 +17,7 @@ public class ReservationBookDto {
     private String userName;
     private String phoneNumber;
     private int userCount;
-    private Date check_in;
-    private Date check_out;
+    private Date checkIn;
+    private Date checkOut;
     private boolean service;
 }
