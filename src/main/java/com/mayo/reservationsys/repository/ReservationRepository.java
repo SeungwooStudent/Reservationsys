@@ -15,7 +15,7 @@ public interface ReservationRepository extends JpaRepository<Reservations, Long>
     //예약취소
     @Modifying //수정,삭제시에 꼭 필요하다. 조회를 제외하고 변경이 일어나면 필요함
     @Query("DELETE FROM Reservations reservations Where reservations.reservationSeq = :id")
-    int reservationCancle(long id);
+    int reservationCancel(long id);
 
     //예약확인,검색
     @Query("SELECT reservations FROM Reservations reservations Where reservations.userName = :name and reservations.phoneNumber = :phoneNumber")
@@ -32,14 +32,19 @@ public interface ReservationRepository extends JpaRepository<Reservations, Long>
 
     //특정날짜로 예약가능한 방 조회
     @Query("SELECT rooms.roomNo as roomNo FROM Rooms rooms WHERE rooms.roomNo != (SELECT r.roomNo FROM Reservations r where :requestDate >= r.checkIn AND :requestDate <= r.checkOut)")
-    List<ReservationCheckDto> getAvaliableRooms(Date requestDate);
+    List<ReservationCheckDto> getAvailableRooms(Date requestDate);
 
-    //핸드폰번호로 예약자 조회ㅎ
+    //핸드폰번호로 예약자 조회
     @Query("SELECT reservations FROM Reservations reservations Where reservations.phoneNumber = :phoneNumber")
     List<Reservations> phoneNumberSearch(String phoneNumber);
 
     //방 번호로 예약조회
     @Query("SELECT reservations FROM Reservations reservations Where reservations.roomNo = :roomNo")
     List<Reservations> roomNumberSearch(int roomNo);
+
+    //특정날짜로 예약조회
+    @Query("SELECT reservations FROM Reservations reservations WHERE reservations.checkIn = (SELECT r.checkIn FROM Reservations r WHERE :requestDate = date(r.checkIn))")
+    List<Reservations> dateSearch(Date requestDate);
+
 
 }

@@ -41,8 +41,8 @@ public class ReservationService {
 
     //예약취소
     @Transactional
-    public String reservationCancle(@PathVariable Long seq) {
-        reservationRepository.reservationCancle(seq);
+    public String reservationCancel(@PathVariable Long seq) {
+        reservationRepository.reservationCancel(seq);
         return "예약이 취소되었습니다";
     }
 
@@ -67,10 +67,10 @@ public class ReservationService {
 
     //특정날짜로 예약가능한 방 조회
     @Transactional
-    public List<ReservationCheckDto> avaliableRooms(String date) throws ParseException {
+    public List<ReservationCheckDto> availableRooms(String date) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date reqeustDate = simpleDateFormat.parse(date);
-        return reservationRepository.getAvaliableRooms(reqeustDate);
+        Date requestDate = simpleDateFormat.parse(date);
+        return reservationRepository.getAvailableRooms(requestDate);
     }
 
     //핸드폰번호로 예약자 조회
@@ -85,4 +85,11 @@ public class ReservationService {
        return reservationRepository.roomNumberSearch(roomNo);
     }
 
+    //특정날짜로 에약자조회
+    @Transactional
+    public List<Reservations> dateSearch(String date) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date requestDate = simpleDateFormat.parse(date);
+        return reservationRepository.dateSearch(requestDate);
+    }
 }
