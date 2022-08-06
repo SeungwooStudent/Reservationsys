@@ -48,16 +48,17 @@ public class ReservationController {
     @PostMapping("cancel/{seq}")
     @ApiOperation(value = "예약취소", notes = "예약자의 예약 고유번호로 예약 취소를 할수있는 api 입니다.")
     public String reservationCancel(@ApiParam(
-            name = "reservationSeq",
+            name = "seq",
             type = "integer",
-            value = "예약자의 예약고유번호",
-            example = "1",
+            value = "예약자의 고유번호",
+            example = "5",
             required = true)
             @PathVariable Long seq) {
         System.out.println(RESERVATION_API + "/cancel/" + seq);
         return reservationService.reservationCancel(seq);
     }
 
+//    @GetMapping("search")
     @GetMapping("search")
     @ApiOperation(value = "예약조회", notes = "예약자의 이름,전화번호로 예약정보를 조회할수있는 api 입니다.")
     public List<Reservations> searchUser(@RequestBody ReservationSearchDto reservationSearchDto) {
@@ -68,8 +69,7 @@ public class ReservationController {
     @PostMapping("update/{id}")
     @ApiOperation(value = "예약수정", notes = "예약자의 예약 고유번호로 이름,전화번호,인원수,서비스를 수정할수 있는 api 입니다.")
     public String reservationUpdate(@ApiParam(
-            name = "reservationSeq",
-            type = "integer",
+            name = "id",
             value = "예약자의 예약고유번호",
             example = "1",
             required = true)
