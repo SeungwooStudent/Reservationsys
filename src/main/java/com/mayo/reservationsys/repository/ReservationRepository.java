@@ -32,12 +32,13 @@ public interface ReservationRepository extends JpaRepository<Reservations, Long>
 
     //특정날짜로 예약가능한 방 조회
     //
-    //SELECT rooms.room_no as roomNo FROM Rooms rooms WHERE rooms.room_no != (SELECT r.room_no FROM Reservations r where "2022-08-10" >= r.check_in AND "2022-08-10" <= r.check_out)
-    @Query("SELECT rooms.roomNo as roomNo FROM Rooms rooms WHERE rooms.roomNo != (SELECT r.roomNo FROM Reservations r where :requestDate >= r.checkIn AND :requestDate < r.checkOut)")
+    //SELECT rooms.room_no as roomNo FROM Rooms rooms WHERE rooms.room_no NOT IN (SELECT r.room_no FROM Reservations r where "2022-08-10" >= r.check_in AND "2022-08-10" <= r.check_out)
+    @Query("SELECT rooms.roomNo as roomNo FROM Rooms rooms WHERE rooms.roomNo NOT IN (SELECT r.roomNo FROM Reservations r where :requestDate >= r.checkIn AND :requestDate <= r.checkOut)")
     List<ReservationCheckDto> getAvailableRooms(String requestDate);
 
-    @Query("SELECT rooms.roomNo as roomNo FROM Rooms rooms WHERE rooms.roomNo != (SELECT r.roomNo FROM Reservations r where :startDate >= r.checkIn AND :endDate < r.checkOut)")
-    List<ReservationCheckDto> getAvailableRoomsForMonth(Date startDate, Date endDate);
+    //SELECT re FROM Reservationsys re WHERE re.check_in >= "2022-08-01" AND re.checkout <= "2022-08-31";
+    @Query("SELECT re FROM Reservations re WHERE re.checkIn >= :startDate AND re.checkOut <= :endDate")
+    List<Reservations> getAvailableRoomsForMonth(String startDate, String endDate);
 
     //핸드폰번호로 예약자 조회
     @Query("SELECT reservations FROM Reservations reservations Where reservations.phoneNumber = :phoneNumber")

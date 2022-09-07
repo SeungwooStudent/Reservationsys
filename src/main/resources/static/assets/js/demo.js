@@ -611,13 +611,27 @@ demo = {
     },
 
     initFullCalendar: function(){
+
         $calendar = $('#fullCalendar');
 
         today = new Date();
         y = today.getFullYear();
         m = today.getMonth();
         d = today.getDate();
-
+//        calendar.callCalendarForMonth();
+        var query = {
+                            date: "2022-09-01"
+                        };
+                        $
+                            .ajax({
+                                type: "GET",
+                                url: "192.168.0.233:8080/v1/reservation/available_rooms_month/",
+                                data: query,
+                                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                                success: function (json) {
+                                    alert(json);
+                                }
+                            });
         $calendar.fullCalendar({
 			header: {
 				left: 'title',

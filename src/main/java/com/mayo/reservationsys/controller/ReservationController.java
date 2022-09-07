@@ -93,7 +93,8 @@ public class ReservationController {
 
     @GetMapping("available_rooms_month") // localhost:8080/v1/reservation/available_rooms/2022-01-01
     @ApiOperation(value = "빈방조회", notes = "특정한 월에 예약이 가능한 방을 조회할수 있는 api 입니다.")
-    public List<ReservationCheckDto> availableRoomsForMonth(@ApiParam(
+    @CrossOrigin("*")
+    public List<Reservations> availableRoomsForMonth(@ApiParam(
             name = "date",
             type = "String",
             value = "예약을 원하는 달",

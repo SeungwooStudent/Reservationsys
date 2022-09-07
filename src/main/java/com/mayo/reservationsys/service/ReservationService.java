@@ -73,10 +73,7 @@ public class ReservationService {
     }
 
     @Transactional
-    public List<ReservationCheckDto> availableRoomsForMonth(String date) throws ParseException {
-        // date : 2022-08-01
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date startDate = simpleDateFormat.parse(date);
+    public List<Reservations> availableRoomsForMonth(String date) throws ParseException {
 
         // end date
         String m = date.split("-")[1];
@@ -84,10 +81,9 @@ public class ReservationService {
         month ++;
         String end = "2022-0" + month + "-01";
         System.out.println("end date : " + end);
-        Date endDate = simpleDateFormat.parse(end);
 
 //        Date endDate = simpleDateFormat.parse()
-        return reservationRepository.getAvailableRoomsForMonth(startDate, endDate);
+        return reservationRepository.getAvailableRoomsForMonth(date, end);
     }
 
     //핸드폰번호로 예약자 조회
