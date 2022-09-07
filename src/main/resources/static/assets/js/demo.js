@@ -618,21 +618,55 @@ demo = {
         y = today.getFullYear();
         m = today.getMonth();
         d = today.getDate();
+        var rooms = new Array();
+        var checkInYear = new Array();
+        var checkInMonth = new Array();
+        var checkInDay = new Array();
+        var checkOutYear = new Array();
+        var checkOutMonth = new Array();
+        var checkOutDay = new Array();
+        var ev = new Array();
 //        calendar.callCalendarForMonth();
         var query = {
-                            date: "2022-09-01"
-                        };
-                        $
-                            .ajax({
-                                type: "GET",
-                                url: "192.168.0.233:8080/v1/reservation/available_rooms_month/",
-                                data: query,
-                                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
-                                success: function (json) {
-                                    alert(json);
+            date: "2022-09-01"
+        };
+        $
+            .ajax({
+                type: "GET",
+                url: "http://192.168.0.233:8080/v1/reservation/available_rooms_month/",
+                data: query,
+                contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                success: function (json) {
+                    var list = json;
+                    var len = json.length;
+                    var index = 0;
+                    for (var i = 0; i < len; i++) {
+                        rooms[i] = json[i].roomNo;
+                        var checkIn = json[i].checkIn.split("-");
+                        checkInYear[i] = parseInt(checkIn[0]);
+
+                        // 09-05 - 07
+                        checkInMonth[i] = parseInt(checkIn[1]);
+                        checkInDay[i] = parseInt(checkIn[2]);
+                        var checkOut = json[i].checkOut.split("-");
+                        checkOutYear[i] = parseInt(checkOut[0]);
+                        checkOutMonth[i] = parseInt(checkOut[1]);
+                        checkOutDay[i] = parseInt(checkOut[2]);
+                        for (var j = checkInDay[i]; j <= checkOutDay[i]; j++) {
+                            ev[index++] =
+                                {
+                                    title: rooms[i] +'번 예약완료',
+                                    //2022-09-05
+                                    start: new Date(checkInYear[i], checkInMonth[i]-1, j),
+                                    allDay: true,
+                                    className: 'event-red'
                                 }
-                            });
-        $calendar.fullCalendar({
+                        }
+
+                    }
+
+
+$calendar.fullCalendar({
 			header: {
 				left: 'title',
 				center: 'month,agendaWeek,agendaDay',
@@ -684,39 +718,11 @@ demo = {
 
 
             // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
-            events: [
-				{
-					title: '1번 예약완료',
-					start: new Date(y, 7, 31),
-					allDay: true,
-					className: 'event-red'
-				},
-				{
-                    title: '2번 예약가능',
-                    start: new Date(y, 7, 31),
-                    allDay: true,
-                    className: 'event-blue'
-                },
-                {
-					title: '3번 예약완료',
-					start: new Date(y, 7, 31),
-					allDay: true,
-					className: 'event-red'
-				},
-                {
-                    title: '4번 예약가능',
-                    start: new Date(y, 7, 31),
-                    allDay: true,
-                    className: 'event-blue'
-                },
-                {
-                    title: '5번 예약가능',
-                    start: new Date(y, 7, 31),
-                    allDay: true,
-                    className: 'event-blue'
-                }
-			]
+            events: ev
 		});
+                }
+            });
+
     },
 
 	showNotification: function(from, align){
