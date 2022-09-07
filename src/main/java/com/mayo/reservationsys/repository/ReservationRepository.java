@@ -31,8 +31,13 @@ public interface ReservationRepository extends JpaRepository<Reservations, Long>
     List<ReservationInfoDto> findReservations();
 
     //특정날짜로 예약가능한 방 조회
-    @Query("SELECT rooms.roomNo as roomNo FROM Rooms rooms WHERE rooms.roomNo != (SELECT r.roomNo FROM Reservations r where :requestDate >= r.checkIn AND :requestDate <= r.checkOut)")
-    List<ReservationCheckDto> getAvailableRooms(Date requestDate);
+    //
+    //SELECT rooms.room_no as roomNo FROM Rooms rooms WHERE rooms.room_no != (SELECT r.room_no FROM Reservations r where "2022-08-10" >= r.check_in AND "2022-08-10" <= r.check_out)
+    @Query("SELECT rooms.roomNo as roomNo FROM Rooms rooms WHERE rooms.roomNo != (SELECT r.roomNo FROM Reservations r where :requestDate >= r.checkIn AND :requestDate < r.checkOut)")
+    List<ReservationCheckDto> getAvailableRooms(String requestDate);
+
+    @Query("SELECT rooms.roomNo as roomNo FROM Rooms rooms WHERE rooms.roomNo != (SELECT r.roomNo FROM Reservations r where :startDate >= r.checkIn AND :endDate < r.checkOut)")
+    List<ReservationCheckDto> getAvailableRoomsForMonth(Date startDate, Date endDate);
 
     //핸드폰번호로 예약자 조회
     @Query("SELECT reservations FROM Reservations reservations Where reservations.phoneNumber = :phoneNumber")

@@ -25,10 +25,10 @@ public interface ReservationInfoDto {
     public boolean getService();
 
     @ApiModelProperty(value="체크인날짜", dataType = "Date", required = true, example = "2022-07-31")
-    public Date getCheckIn();
+    public String getCheckIn();
 
     @ApiModelProperty(value="체크아웃날짜", dataType = "Date", required = true, example = "2022-08-01")
-    public Date getCheckOut();
+    public String getCheckOut();
 
     @ApiModelProperty(value="방번호", dataType = "String", required = true, example = "1001")
     public String getRoomName(); // roomName

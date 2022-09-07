@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -26,11 +27,11 @@ public class ReservationBookDto {
     @ApiModelProperty(value="입실 인원수", dataType = "Integer", required = true, example = "10")
     private int userCount;
 
-    @ApiModelProperty(value="체크인날짜", dataType = "Date", required = true, example = "2022-07-29")
-    private Date checkIn;
+    @ApiModelProperty(value="체크인날짜", dataType = "String", required = true, example = "2022-07-29")
+    private String checkIn;
 
-    @ApiModelProperty(value="체크아웃날짜", dataType = "Date", required = true, example = "2022-07-30")
-    private Date checkOut;
+    @ApiModelProperty(value="체크아웃날짜", dataType = "String", required = true, example = "2022-07-30")
+    private String checkOut;
 
     @ApiModelProperty(value="바베큐서비스", dataType = "boolean", required = true, example = "true")
     private boolean service;

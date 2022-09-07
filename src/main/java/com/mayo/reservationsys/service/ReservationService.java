@@ -32,8 +32,8 @@ public class ReservationService {
                         .userName(reservationBookDto.getUserName())
                         .phoneNumber(reservationBookDto.getPhoneNumber())
                         .userCount(reservationBookDto.getUserCount())
-                        .checkIn(reservationBookDto.getCheckIn())
-                        .checkOut(reservationBookDto.getCheckOut())
+                        .checkIn(""+reservationBookDto.getCheckIn())
+                        .checkOut(""+reservationBookDto.getCheckOut())
                         .service(reservationBookDto.isService())
                         .build());
         return "예약이 완료되었습니다.";
@@ -68,9 +68,26 @@ public class ReservationService {
     //특정날짜로 예약가능한 방 조회
     @Transactional
     public List<ReservationCheckDto> availableRooms(String date) throws ParseException {
+
+        return reservationRepository.getAvailableRooms(date);
+    }
+
+    @Transactional
+    public List<ReservationCheckDto> availableRoomsForMonth(String date) throws ParseException {
+        // date : 2022-08-01
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date requestDate = simpleDateFormat.parse(date);
-        return reservationRepository.getAvailableRooms(requestDate);
+        Date startDate = simpleDateFormat.parse(date);
+
+        // end date
+        String m = date.split("-")[1];
+        int month = Integer.parseInt(m);
+        month ++;
+        String end = "2022-0" + month + "-01";
+        System.out.println("end date : " + end);
+        Date endDate = simpleDateFormat.parse(end);
+
+//        Date endDate = simpleDateFormat.parse()
+        return reservationRepository.getAvailableRoomsForMonth(startDate, endDate);
     }
 
     //핸드폰번호로 예약자 조회

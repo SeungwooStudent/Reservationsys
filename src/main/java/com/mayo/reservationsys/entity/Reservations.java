@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -39,10 +40,10 @@ public class Reservations extends BaseTime {
 
     // req = 2022-01-15
     // req > check_in && req < check_out
-    @ApiModelProperty(value="체크인날짜", dataType = "Date", required = true, example = "2022-07-31")
-    private Date checkIn; // 2022-01-16
+    @ApiModelProperty(value="체크인날짜", dataType = "String", required = true, example = "2022-07-31")
+    private String checkIn; // 2022-01-16
 
-    @ApiModelProperty(value="체크아웃날짜", dataType = "Date", required = true, example = "2022-08-01")
-    private Date checkOut;// 2022-01-17
+    @ApiModelProperty(value="체크아웃날짜", dataType = "String", required = true, example = "2022-08-01")
+    private String checkOut;// 2022-01-17
 
 }

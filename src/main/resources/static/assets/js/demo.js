@@ -645,14 +645,21 @@ demo = {
                     var eventData;
                     event_title = $('#input-field').val();
 
+//{
+//					title: '승우',
+//					start: new Date(y, m, d, 15, 30),
+//					allDay: false,
+//					className: 'event-green'
+//				},
                     if (event_title) {
     					eventData = {
     						title: event_title,
-    						start: start,
+    						start: new Date(y, m, d-5, 13,10),
     						end: end
     					};
     					$calendar.fullCalendar('renderEvent', eventData, true); // stick? = true
     				}
+
 
     				$calendar.fullCalendar('unselect');
 
@@ -665,62 +672,35 @@ demo = {
             // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
             events: [
 				{
-					title: 'All Day Event',
-					start: new Date(y, m, 1)
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: new Date(y, m, d-4, 6, 0),
-					allDay: false,
-					className: 'event-blue'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: new Date(y, m, d+3, 6, 0),
-					allDay: false,
-					className: 'event-blue'
-				},
-				{
-					title: 'Meeting',
-					start: new Date(y, m, d-1, 10, 30),
-					allDay: false,
-					className: 'event-green'
-				},
-				{
-					title: 'Lunch',
-					start: new Date(y, m, d+7, 12, 0),
-					end: new Date(y, m, d+7, 14, 0),
-					allDay: false,
+					title: '1번 예약완료',
+					start: new Date(y, 7, 31),
+					allDay: true,
 					className: 'event-red'
 				},
 				{
-					title: 'Pdpro Launch',
-					start: new Date(y, m, d-2, 12, 0),
+                    title: '2번 예약가능',
+                    start: new Date(y, 7, 31),
+                    allDay: true,
+                    className: 'event-blue'
+                },
+                {
+					title: '3번 예약완료',
+					start: new Date(y, 7, 31),
 					allDay: true,
-					className: 'event-azure'
+					className: 'event-red'
 				},
-				{
-					title: 'Birthday Party',
-					start: new Date(y, m, d+1, 19, 0),
-					end: new Date(y, m, d+1, 22, 30),
-					allDay: false,
-				},
-				{
-					title: 'Click for Creative Tim',
-					start: new Date(y, m, 21),
-					end: new Date(y, m, 22),
-					url: 'http://www.creative-tim.com/',
-					className: 'event-orange'
-				},
-				{
-					title: 'Click for Google',
-					start: new Date(y, m, 21),
-					end: new Date(y, m, 22),
-					url: 'http://www.creative-tim.com/',
-					className: 'event-orange'
-				}
+                {
+                    title: '4번 예약가능',
+                    start: new Date(y, 7, 31),
+                    allDay: true,
+                    className: 'event-blue'
+                },
+                {
+                    title: '5번 예약가능',
+                    start: new Date(y, 7, 31),
+                    allDay: true,
+                    className: 'event-blue'
+                }
 			]
 		});
     },

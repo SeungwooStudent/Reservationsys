@@ -90,6 +90,19 @@ public class ReservationController {
         System.out.println(RESERVATION_API + "/available_rooms/" + date);
         return reservationService.availableRooms(date);
     }
+
+    @GetMapping("available_rooms_month") // localhost:8080/v1/reservation/available_rooms/2022-01-01
+    @ApiOperation(value = "빈방조회", notes = "특정한 월에 예약이 가능한 방을 조회할수 있는 api 입니다.")
+    public List<ReservationCheckDto> availableRoomsForMonth(@ApiParam(
+            name = "date",
+            type = "String",
+            value = "예약을 원하는 달",
+            example = "2022-08-01",
+            required = true)
+            @RequestParam("date") String date) throws ParseException {
+        System.out.println(RESERVATION_API + "/available_rooms_month/" + date);
+        return reservationService.availableRoomsForMonth(date);
+    }
     
     //핸드폰번호로 조회
     @GetMapping("phone_number_search")
